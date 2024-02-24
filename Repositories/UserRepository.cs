@@ -10,20 +10,21 @@ namespace crud.Repositories
 
         private readonly TaskSystemDBContext dBContext;
 
-        public UserRepository(TaskSystemDBContext taskSystemDBContext) {
-        
+        public UserRepository(TaskSystemDBContext taskSystemDBContext)
+        {
+
             dBContext = taskSystemDBContext;
 
         }
 
         public async Task<List<User>> getAllUsers()
         {
-           return await dBContext.Users.ToListAsync();
+            return await dBContext.Users.ToListAsync();
         }
 
         public async Task<User> getById(int id)
         {
-            return await dBContext.Users.FirstOrDefaultAsync(user => user.Id == id);    
+            return await dBContext.Users.FirstOrDefaultAsync(user => user.Id == id);
         }
 
         public async Task<User> addUser(User user)
@@ -37,7 +38,7 @@ namespace crud.Repositories
         public async Task<bool> removeUser(int id)
         {
             User userId = await getById(id);
-            if(userId == null)
+            if (userId == null)
             {
                 throw new Exception($"User with ID: {id} was not found.");
             }
@@ -51,8 +52,8 @@ namespace crud.Repositories
 
         public async Task<User> updateUser(User user, int id)
         {
-            User userId = await getById(id) ;
-            if(userId == null)
+            User userId = await getById(id);
+            if (userId == null)
             {
                 throw new Exception($"User with ID: {id} was not found.");
 
