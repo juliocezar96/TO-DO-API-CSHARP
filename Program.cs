@@ -1,4 +1,9 @@
 
+using crud.Data;
+using crud.Repositories;
+using crud.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
+
 namespace crud
 {
     public class Program
@@ -13,6 +18,13 @@ namespace crud
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddEntityFrameworkSqlServer()
+                .AddDbContext<TaskSystemDBContext>(
+                    options => options.UseSqlServer(builder.Configuration.GetConnectionString("DataBase"))
+                );
+
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
 
             var app = builder.Build();
 
